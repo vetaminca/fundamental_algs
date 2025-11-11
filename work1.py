@@ -46,10 +46,10 @@ def point_in_triangle(ax, ay, bx, by, cx, cy, px, py, eps=1e-9):
     c = dist(ax, ay, bx, by)  # сторона opposite C
 
     # площадь большого треугольника
-    area_abc = heron_area(a, b, c)
+    area_ABC = heron_area(a, b, c)
 
     # если площадь очень близка к нулю — треугольник вырожден
-    if area_abc <= eps:
+    if area_ABC <= eps:
         # треугольник вырожден: нельзя корректно определить "внутри"
         # В такой ситуации можно дополнительно проверить лежит ли точка
         # на отрезке между двумя точками (если все три коллинеарны) —
@@ -77,4 +77,35 @@ def point_in_triangle(ax, ay, bx, by, cx, cy, px, py, eps=1e-9):
 
     # сравниваем с учётом погрешности eps
     # если разница меньше eps => внутри или на границе
-    return abs(area_sum - area_abc) <= eps
+    return abs(area_sum - area_ABC) <= eps
+
+# Пример 1: точки треугольника и точка (2,2)
+A1 = (0.0, 0.0)
+B1 = (5.0, 0.0)
+C1 = (0.0, 5.0)
+P1 = (2.0, 2.0)
+
+# Пример 2: та же тройка вершин, точка (12,12)
+P2 = (12.0, 12.0)
+
+# Проверка и вывод результатов
+def nice_print_result(A, B, C, P):
+    ax, ay = A
+    bx, by = B
+    cx, cy = C
+    px, py = P
+    try:
+        inside = point_in_triangle(ax, ay, bx, by, cx, cy, px, py)
+    except ValueError as e:
+        print(f"Ошибка: {e}")
+        return
+    if inside:
+        print(f"Точка ({px:.6g}, {py:.6g}) находится ВНУТРИ или на границе треугольника с вершинами "
+              f"({ax:.6g},{ay:.6g}), ({bx:.6g},{by:.6g}), ({cx:.6g},{cy:.6g}).")
+    else:
+        print(f"Точка ({px:.6g}, {py:.6g}) находится СНАРУЖИ треугольника с вершинами "
+              f"({ax:.6g},{ay:.6g}), ({bx:.6g},{by:.6g}), ({cx:.6g},{cy:.6g}).")
+
+# Вывод для двух примеров из задания
+nice_print_result(A1, B1, C1, P1)  # ожидаем: внутри
+nice_print_result(A1, B1, C1, P2)  # ожидаем: снаружи
