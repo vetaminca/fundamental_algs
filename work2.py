@@ -42,6 +42,8 @@ def word_to_num(word, mapping):
 # Это всё ещё выполнимо для Python (занимает пару секунд).
 
 for perm in itertools.permutations(digits, len(remaining_letters)):
+    # permutations - все возможные комбинации из различных цифр без повторений.
+
     # Формируем словарь подстановки для данного варианта
     mapping = dict(zip(remaining_letters, perm))
     # Добавляем фиксированные значения
