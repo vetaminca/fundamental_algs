@@ -65,5 +65,5 @@ for perm in itertools.permutations(digits, len(remaining_letters)):
         print(f"GERALD = {GERALD}")
         print(f"ROBERT = {ROBERT}")
         break
-else:
-    print("❌ Решений не найдено.")
+    else:
+        print("❌ Решений не найдено.")
